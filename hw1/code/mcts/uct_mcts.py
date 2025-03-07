@@ -90,8 +90,8 @@ class UCTMCTS:
             while True:
                 temp+=1
                 action=np.random.choice(np.arange(node.n_action))
-                if not env._action_mask_cache[action]==0:
-                # if not env._valid_action_mask[action]==0:
+                # if not env._action_mask_cache[action]==0:
+                if not env._valid_action_mask[action]==0:
                     break
                 if temp==node.n_action:
                     return total_reward

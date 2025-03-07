@@ -6,11 +6,13 @@ import numpy as np
 import time
 from collections import Counter
 
+TEST=False
+SEARCH_BEST_C=False
 TASK3=False
 TASK4=False
 TASK4_MODE=0.0
 TASK5=False
-TASK6=False
+TASK6=True
 TASK7=False
 
 def print_devide_line(n=50):
@@ -44,9 +46,14 @@ def pit(game:BaseGame, player1:BasePlayer, player2:BasePlayer, log_output:bool=T
         if player2.__class__.__name__ == 'UCTPlayer':
             player2.opp_play(a1)
         if log_output:
-            print(f"Player 1 ({player1}) move: {a1}")
-            print(game.to_string())
-            print_devide_line()
+            if TASK6:
+                print(f"Player 1 ({player1}) move: {a1}", file=open("MCTS_task6.txt", "a"))
+                print(game.to_string(), file=open("MCTS_task6.txt", "a"))
+                # print("--"*50, file=open("MCTS_task6.txt", "a"))
+            else:
+                print(f"Player 1 ({player1}) move: {a1}")
+                print(game.to_string())
+                print_devide_line()
         if done:
             break
 
@@ -66,9 +73,14 @@ def pit(game:BaseGame, player1:BasePlayer, player2:BasePlayer, log_output:bool=T
         if player1.__class__.__name__ == 'UCTPlayer':
             player1.opp_play(a2)
         if log_output:
-            print(f"Player 2 ({player2}) move: {a2}")
-            print(game.to_string())
-            print_devide_line()
+            if TASK6:
+                print(f"Player 2 ({player2}) move: {a2}", file=open("MCTS_task6.txt", "a"))
+                print(game.to_string(), file=open("MCTS_task6.txt", "a"))
+                # print("--"*50, file=open("MCTS_task6.txt", "a"))
+            else:
+                print(f"Player 2 ({player2}) move: {a2}")
+                print(game.to_string())
+                print_devide_line()
         if done:
             reward *= -1
             break
@@ -127,6 +139,14 @@ if __name__ == '__main__':
     
     # set seed to reproduce the result
     # np.random.seed(42)
+
+    if TEST:
+        game=GoGame()
+        game.reset()
+        print(game.to_string())
+
+    if SEARCH_BEST_C:
+        search_best_C()
 
     """TASK3"""
     if TASK3:
@@ -268,17 +288,17 @@ if __name__ == '__main__':
     """TASK6"""
     if TASK6:
         print("---TASK6 START---")
-        n_match=1
-        n_trail=3
-        game = GoGame()
+        n_trail=1
+        game = GoGame(7)
         config = UCTMCTSConfig()
         config.C = 2.5
         config.n_rollout = 13
         config.n_search = 200
-        player1 = AlphaBetaHeuristicPlayer()
-        player2 = UCTPlayer(config, deterministic=True)
+        player2 = AlphaBetaHeuristicPlayer()
+        player1 = UCTPlayer(config, deterministic=True)
         for _ in range(n_trail):
-            multi_match(game, player1, player3, n_match=n_match)
+            pit(game, player1, player2, log_output=True)
+            pit(game, player2, player1, log_output=True)
         print("---TASK6   END---")
 
     """TASK7"""
