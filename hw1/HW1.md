@@ -40,3 +40,94 @@ Pass
 
 $\color{Blue}{Answer:}$
 
+(1) 对节点 $n$ 满足 $h(n) \leq h^*(n) + C_1$，要证 $g(T) \leq h^*(S) + C_1$
+
+有 $h(S) \leq h^*(S) + C_1$，$g(T)=h$
+
+(2) 对节点 $n$ 满足 $h(n) \leq C_2 h^*(n)$，要证 $g(T) \leq C_2 h^*(S)$
+
+### 3 蒙特卡洛树搜索
+
+$\color{Blue}{Answer:}$
+
+(1) 先手没有必胜策略，后手可以保证不输。
+
+(3)
+
+```bash
+> python pit.py
+Player 1:Random Player  Player 2:AlphaBeta Player
+P1 win: 0 (0) P2 win: 83 (83) Draw: 17 (17): 100%|████████████████████████████████████████████████████████████████████████████| 100/100 [00:00<00:00, 548.61it/s]
+Player 1 (Random Player) win: 0 (0.00%)
+Player 2 (AlphaBeta Player) win: 83 (83.00%)
+Draw: 17 (17.00%)
+Player 1 not lose: 17 (17.00%)
+Player 2 not lose: 100 (100.00%)
+Player 1:AlphaBeta Player  Player 2:Random Player
+P1 win: 98 (98) P2 win: 0 (0) Draw: 2 (2): 100%|██████████████████████████████████████████████████████████████████████████████| 100/100 [00:00<00:00, 869.26it/s]
+Player 1 (AlphaBeta Player) win: 98 (98.00%)
+Player 2 (Random Player) win: 0 (0.00%)
+Draw: 2 (2.00%)
+Player 1 not lose: 100 (100.00%)
+Player 2 not lose: 2 (2.00%)
+```
+
+```bash
+> python pit.py
+Player 1:Random Player  Player 2:UCT Player
+P1 win: 55 (55) P2 win: 33 (33) Draw: 12 (12): 100%|███████████████████████████████████████████████████████████████████████████| 100/100 [00:05<00:00, 17.03it/s]
+Player 1 (Random Player) win: 55 (55.00%)
+Player 2 (UCT Player) win: 33 (33.00%)
+Draw: 12 (12.00%)
+Player 1 not lose: 67 (67.00%)
+Player 2 not lose: 45 (45.00%)
+Player 1:UCT Player  Player 2:Random Player
+P1 win: 63 (63) P2 win: 27 (27) Draw: 10 (10): 100%|███████████████████████████████████████████████████████████████████████████| 100/100 [00:07<00:00, 13.85it/s]
+Player 1 (UCT Player) win: 63 (63.00%)
+Player 2 (Random Player) win: 27 (27.00%)
+Draw: 10 (10.00%)
+Player 1 not lose: 73 (73.00%)
+Player 2 not lose: 37 (37.00%)
+```
+
+```bash
+> python pit.py
+Player 1:AlphaBeta Player  Player 2:UCT Player
+P1 win: 100 (100) P2 win: 0 (0) Draw: 0 (0): 100%|█████████████████████████████████████████████████████████████████████████████| 100/100 [00:04<00:00, 21.00it/s]
+Player 1 (AlphaBeta Player) win: 100 (100.00%)
+Player 2 (UCT Player) win: 0 (0.00%)
+Draw: 0 (0.00%)
+Player 1 not lose: 100 (100.00%)
+Player 2 not lose: 0 (0.00%)
+Player 1:UCT Player  Player 2:AlphaBeta Player
+P1 win: 0 (0) P2 win: 78 (78) Draw: 22 (22): 100%|█████████████████████████████████████████████████████████████████████████████| 100/100 [00:07<00:00, 12.84it/s]
+Player 1 (UCT Player) win: 0 (0.00%)
+Player 2 (AlphaBeta Player) win: 78 (78.00%)
+Draw: 22 (22.00%)
+Player 1 not lose: 22 (22.00%)
+Player 2 not lose: 100 (100.00%)
+```
+
+(4) 
+
+```bash
+> python stat.py
+--- c=0.1 ----
+数字 1 出现了 76 次
+数字 2 出现了 89 次
+数字 3 出现了 73 次
+数字 4 出现了 82 次
+数字 5 出现了 80 次
+数字 6 出现了 121 次
+数字 7 出现了 109 次
+数字 8 出现了 96 次
+--- c=5.0 ----
+数字 1 出现了 82 次
+数字 2 出现了 77 次
+数字 3 出现了 83 次
+数字 4 出现了 102 次
+数字 5 出现了 89 次
+数字 6 出现了 90 次
+数字 7 出现了 103 次
+数字 8 出现了 87 次
+```
