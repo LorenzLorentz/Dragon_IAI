@@ -1,6 +1,7 @@
 from .node import MCTSNode, INF
 from .config import MCTSConfig
 from env.base_env import BaseGame
+from other_algo.alpha_beta_search import go_heuristic_evaluation
 
 import numpy as np
 
@@ -15,7 +16,8 @@ class UCTMCTSConfig(MCTSConfig):
 
 
 class UCTMCTS:
-    def __init__(self, init_env:BaseGame, config: UCTMCTSConfig, root:MCTSNode=None):
+    def __init__(self, init_env:BaseGame, config: UCTMCTSConfig, root:MCTSNode=None, depth:int=5):
+        self.depth = depth
         self.config = config
         self.root = root
         if root is None:
@@ -80,19 +82,25 @@ class UCTMCTS:
         ########################
         env=node.env.fork()
         total_reward=0.0
+        depth=0
         while not env._ended:
+            depth+=1
             action=0
             temp=0
             while True:
                 temp+=1
                 action=np.random.choice(np.arange(node.n_action))
-                # if not env._action_mask_cache[action]==0:
-                if not env._valid_action_mask[action]==0:
+                if not env._action_mask_cache[action]==0:
+                # if not env._valid_action_mask[action]==0:
                     break
                 if temp==node.n_action:
                     return total_reward
             observation, reward, done=env.step(action)
             total_reward+=reward
+
+            if depth==self.depth:
+                return go_heuristic_evaluation(node.env)
+            
         return total_reward
         ########################
     
