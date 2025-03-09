@@ -52,82 +52,67 @@ $\color{Blue}{Answer:}$
 
 (1) 先手没有必胜策略，后手可以保证不输。
 
-(3)
+(3) 实验结果见`MCTS_task3.txt`文件，ai配置按照体重要求
 
-```bash
-> python pit.py
-Player 1:Random Player  Player 2:AlphaBeta Player
-P1 win: 0 (0) P2 win: 83 (83) Draw: 17 (17): 100%|████████████████████████████████████████████████████████████████████████████| 100/100 [00:00<00:00, 548.61it/s]
-Player 1 (Random Player) win: 0 (0.00%)
-Player 2 (AlphaBeta Player) win: 83 (83.00%)
-Draw: 17 (17.00%)
-Player 1 not lose: 17 (17.00%)
-Player 2 not lose: 100 (100.00%)
-Player 1:AlphaBeta Player  Player 2:Random Player
-P1 win: 98 (98) P2 win: 0 (0) Draw: 2 (2): 100%|██████████████████████████████████████████████████████████████████████████████| 100/100 [00:00<00:00, 869.26it/s]
-Player 1 (AlphaBeta Player) win: 98 (98.00%)
-Player 2 (Random Player) win: 0 (0.00%)
-Draw: 2 (2.00%)
-Player 1 not lose: 100 (100.00%)
-Player 2 not lose: 2 (2.00%)
-```
+根据实验结果可知：
 
-```bash
-> python pit.py
-Player 1:Random Player  Player 2:UCT Player
-P1 win: 55 (55) P2 win: 33 (33) Draw: 12 (12): 100%|███████████████████████████████████████████████████████████████████████████| 100/100 [00:05<00:00, 17.03it/s]
-Player 1 (Random Player) win: 55 (55.00%)
-Player 2 (UCT Player) win: 33 (33.00%)
-Draw: 12 (12.00%)
-Player 1 not lose: 67 (67.00%)
-Player 2 not lose: 45 (45.00%)
-Player 1:UCT Player  Player 2:Random Player
-P1 win: 63 (63) P2 win: 27 (27) Draw: 10 (10): 100%|███████████████████████████████████████████████████████████████████████████| 100/100 [00:07<00:00, 13.85it/s]
-Player 1 (UCT Player) win: 63 (63.00%)
-Player 2 (Random Player) win: 27 (27.00%)
-Draw: 10 (10.00%)
-Player 1 not lose: 73 (73.00%)
-Player 2 not lose: 37 (37.00%)
-```
+| 先手   | 后手      | 先手胜率 | 先手不输率 | 后手胜率 | 后手不输率 |
+|:------:|:---------:|:-------:|:---------:|:-------:|:---------:|
+| Random | UCT | 63%     | 74%       | 26%     | 37%       |
+| UCT | Random | 56% | 65% | 35% | 44% |
+| Alphabeta | UCT | 99% | 100% | 0% | 1%|
+| UCT | Alphabeta | 0% | 15% | 85% | 100% |
+| UCT | UCT | 59% | 70% | 30% | 41% |
 
-```bash
-> python pit.py
-Player 1:AlphaBeta Player  Player 2:UCT Player
-P1 win: 100 (100) P2 win: 0 (0) Draw: 0 (0): 100%|█████████████████████████████████████████████████████████████████████████████| 100/100 [00:04<00:00, 21.00it/s]
-Player 1 (AlphaBeta Player) win: 100 (100.00%)
-Player 2 (UCT Player) win: 0 (0.00%)
-Draw: 0 (0.00%)
-Player 1 not lose: 100 (100.00%)
-Player 2 not lose: 0 (0.00%)
-Player 1:UCT Player  Player 2:AlphaBeta Player
-P1 win: 0 (0) P2 win: 78 (78) Draw: 22 (22): 100%|█████████████████████████████████████████████████████████████████████████████| 100/100 [00:07<00:00, 12.84it/s]
-Player 1 (UCT Player) win: 0 (0.00%)
-Player 2 (AlphaBeta Player) win: 78 (78.00%)
-Draw: 22 (22.00%)
-Player 1 not lose: 22 (22.00%)
-Player 2 not lose: 100 (100.00%)
-```
+注：题干中指出应为 $3 \times 2 = 6$ 组，疑似有误，因为 MCTS vs MCTS 不需要两组。
+
 
 (4) 
 
-```bash
-> python stat.py
+设定对手为Alphabeta，分别在 $C=0.1, C=5.0$ 条件下，分别先后手进行对弈，统计输出信息，实验结果见文件`MCTS_task4_C=0.1.txt`, `MCTS_task4_C=5.0.txt`, `MCTS_task_stat.txt`，统计陈旭为`stat.py`。
+
+统计结果如下文
+
+``` bash
 --- c=0.1 ----
-数字 1 出现了 76 次
-数字 2 出现了 89 次
-数字 3 出现了 73 次
-数字 4 出现了 82 次
-数字 5 出现了 80 次
-数字 6 出现了 121 次
-数字 7 出现了 109 次
-数字 8 出现了 96 次
+action 0 出现了 279 次
+action 1 出现了 265 次
+action 2 出现了 272 次
+action 3 出现了 246 次
+action 4 出现了 280 次
+action 5 出现了 219 次
+action 6 出现了 237 次
+action 7 出现了 214 次
+action 8 出现了 207 次
+
 --- c=5.0 ----
-数字 1 出现了 82 次
-数字 2 出现了 77 次
-数字 3 出现了 83 次
-数字 4 出现了 102 次
-数字 5 出现了 89 次
-数字 6 出现了 90 次
-数字 7 出现了 103 次
-数字 8 出现了 87 次
+action 0 出现了 286 次
+action 1 出现了 267 次
+action 2 出现了 264 次
+action 3 出现了 230 次
+action 4 出现了 280 次
+action 5 出现了 242 次
+action 6 出现了 235 次
+action 7 出现了 191 次
+action 8 出现了 211 次
 ```
+
+可以看出，不同 $C$ 取值在井字棋游戏中不会带来显著差异，都近似为随机 (???是不是我的算法实现有问题)。
+
+(5)
+
+本实验非常耗时，实验结果见文件`MCTS_task5.txt`。
+
+大量数据显示，先手胜率始终在 $30\%$ 左右，后手胜率始终在 $70\%$ 左右，与`n_rollout`与`n_search`无显著关联，表明其与搜索质量无显著关联。
+
+同时，显然，`n_rollout`与`n_search`与搜索速度呈负相关，具体依赖情况没有具体分析。
+
+(6)
+
+实验结果见文件`MCTS_task6.txt`。
+
+MCTS的落子非常不合理。
+
+(7) (c)
+
+分析文件待编写。

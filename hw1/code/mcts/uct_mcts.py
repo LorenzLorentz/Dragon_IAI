@@ -51,7 +51,7 @@ class UCTMCTS:
         best_ucb=float('-inf')
         for action in node.children:
             ucb = (np.sum(node.child_V_total) / node.child_V_total[action] 
-                   + self.config.C*np.sqrt(2 * np.log(np.sum(node.child_N_visit) / node.child_N_visit[action])))
+                   + self.config.C*np.sqrt(2 * np.log(np.sum(node.child_N_visit+1e-8) / (node.child_N_visit[action]+1e-8))))
             if ucb>best_ucb:
                 best_ucb=ucb
                 best_action=best_action
@@ -90,8 +90,8 @@ class UCTMCTS:
             while True:
                 temp+=1
                 action=np.random.choice(np.arange(node.n_action))
-                # if not env._action_mask_cache[action]==0:
-                if not env._valid_action_mask[action]==0:
+                if not env._action_mask_cache[action]==0:
+                # if not env._valid_action_mask[action]==0:
                     break
                 if temp==node.n_action:
                     return total_reward

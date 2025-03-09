@@ -8,11 +8,11 @@ from collections import Counter
 
 TEST=False
 SEARCH_BEST_C=False
-TASK3=False
+TASK3=True
 TASK4=False
 TASK4_MODE=0.0
 TASK5=False
-TASK6=True
+TASK6=False
 TASK7=False
 
 def print_devide_line(n=50):
